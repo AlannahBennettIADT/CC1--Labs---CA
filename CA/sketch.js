@@ -57,6 +57,11 @@ function setup(){
     let male2023data = cleanData01.filter((cleanData01)=> cleanData01.Sex == "Male" && cleanData01.Year == "2023");
     console.log(male2023data);
 
+
+    
+    let data2023 = cleanData01.filter((cleanData01)=>  cleanData01.Year == "2023");
+    console.log(data2023);
+
     // let CEOLineData = cleanData01.filter((cleanData01)=> cleanData01.Roles == "Chief Executive Officers (CEOs)");
     let CEOLineData = cleanData01;
     console.log(CEOLineData);
@@ -101,6 +106,39 @@ function setup(){
         numTicks: 5
     }
 
+
+    let barChart02 ={
+        data:data2023,
+
+        chartHeight: 250,
+        chartWidth: 300,
+
+        xPos: 1000,
+        yPos:380,
+
+        axisLineColour: "#d9d9d9",
+        barWidth: 25,
+        barColour: colours,
+
+        yValue: "VALUE",
+        xValue: "Roles",
+        YLabel: "Leadership Positions 2023 ",
+        labelFont: fontBold,
+
+        labelColour: "#ffffff",
+        labelRotation: 90,
+        labelTextSize: 10,
+
+        tickWidth: 5,
+        tickWeight: 1,
+        tickColour: "#ffffff",
+        tickStrokeLength: 10,
+        tickPadding:10,
+        tickTextSize: 14,
+        numTicks: 5
+    }
+
+
     let horizontalBarChart ={
         data:male2023data,
 
@@ -135,7 +173,7 @@ function setup(){
 
 
     let lineChart ={
-        data:CEOLineData,
+        data:female2023data,
 
         chartHeight: 250,
         chartWidth: 300,
@@ -148,7 +186,7 @@ function setup(){
         barWidth:0,
 
         yValue: "VALUE",
-        xValue: "Year",
+        xValue: "Roles",
         YLabel: " % Male Vs Female CEO's over time",
         labelFont: fontBold,
 
@@ -180,8 +218,8 @@ function setup(){
         barWidth: 25,
         barColour: colours2,
 
-        yValue: "Total",
-        xValue: ["Male","Female"],
+        yValue:"Total",
+        xValue: ["Male","Female"], 
         YLabel: "Men vs Women in Leadership Positions (100%)",
         labelFont: fontBold,
 
@@ -235,16 +273,25 @@ function setup(){
 
     //These Lines push  each chart object to the barCharts Array: 
 
-    //Bar Chart
+    //Bar Chart 01
     barCharts.push(new BarChart(barChart));
+
+    //Bar Chart 02 
+    barCharts.push(new BarChart(barChart02));
+
     //Horizontal Bar Chart
     barCharts.push(new HorizontalBar(horizontalBarChart));
+
     //100% Stacked
     barCharts.push(new StackedChart(stackedBarChart));
+
     //Normal Stacked
     barCharts.push(new StackedChart(stackedBarChart02));
+
     //Line Chart
-    barCharts.push(new LineChart(lineChart));
+    barCharts.push(new SingleLineChart(lineChart));
+
+    //Pie Chart
 
 }
 
