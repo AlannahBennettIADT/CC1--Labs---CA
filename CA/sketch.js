@@ -171,7 +171,7 @@ function setup(){
 
         chartHeight: 250,
         chartWidth: 300,
-        chartType: "not full",
+        chartType: "full",
 
         xPos: 1000,
         yPos:850,
@@ -205,7 +205,7 @@ function setup(){
 
         chartHeight: 250,
         chartWidth: 300,
-        chartType: "full",
+        chartType: "line",
 
         xPos: 100,
         yPos:850,
@@ -216,7 +216,7 @@ function setup(){
 
         yValue: "Total",
         xValue: ["Male","Female"],
-        YLabel: "Men vs Women in Leadership Positions (100%)",
+        YLabel: "Men vs Women in Leadership Positions (Normal)",
         labelFont: fontBold,
 
         labelColour: "#ffffff",

@@ -29,14 +29,35 @@ class StackedChart {
         this.tickPadding = obj.tickPadding;
         this.tickTextSize = obj.tickTextSize;
 
-        this.maxValue = max(this.data.map(d => d[this.yValue]));
+        // this.maxValue = max(this.data.map(d => d[this.yValue]));
+        // //this doesn't work
+        this.maxValue = max(this.calculatingTotal());
         this.scale = int(this.chartHeight / this.maxValue);
     }
 
-    render() {
-        console.log(this.maxValue)
-        console.log(this.scale)
+    //Getting an array of total values ( This works correctly)
+    calculatingTotal() {
+        // console.log(this.xValue); 
+        let totalArray = [];
 
+        for (let i = 0; i < this.data.length; i++) {
+            let tempTotal = 0;
+            for (let j = 0; j < this.xValue.length; j++) {
+                tempTotal += +(this.data[i][this.xValue[j]]);
+            }
+            totalArray.push(tempTotal);
+        }
+        // console.log(totalArray);
+        //need this line
+        return totalArray;
+    }
+
+
+
+
+    render() {
+        console.log(this.maxValue);
+        console.log(this.scale)
 
         push();
 
@@ -44,6 +65,14 @@ class StackedChart {
         stroke(this.axisLineColour)
         line(0, 0, 0, -this.chartHeight);
         line(0, 0, this.chartWidth, 0);
+
+
+        if (this.chartType == "line") {
+            strokeWeight(3);
+            stroke(255);
+            line(0, -this.chartHeight / 2, this.chartWidth, -this.chartHeight / 2)
+        }
+
 
         noStroke();
         fill(255);
@@ -60,31 +89,60 @@ class StackedChart {
             return l[this.xValue];
         });
 
-        // // console.log(this.yValue.length);
-        // // console.log(this.yValue);
-        console.log(this.yValue)
-        console.log(labels)
+
+        // console.log(this.yValue)
+        // console.log(labels)
 
         push();
-
-        
         translate(gap, 0);
         for (let i = 0; i < this.data.length; i++) {
             push();
-            let total = 0; // Variable to keep track of the total height
+            // Stacked Bars
             for (let j = 0; j < this.xValue.length; j++) {
                 let currentValue = this.data[i][this.xValue[j]];
-                if (this.chartType === "full" && j > 0) {
-                    let prevValue = this.data[i][this.xValue[j - 1]];
-                    // Calculate scale based on the difference between current and previous value
-                    this.scale = ((prevValue - currentValue) / this.maxValue);
+                let barHeight = -currentValue * this.scale;
+
+
+                // Getting the 100% bar chart
+                if (this.chartType == "full") {
+                    let totalArray = this.calculatingTotal();
+                    let barHeight = -currentValue / totalArray[i] * this.chartHeight;
+                    fill(this.barColour[j]);
+                    noStroke();
+                    rect(0, 0, this.barWidth, barHeight);
+                    translate(0, barHeight);
+                } else {
+                    fill(this.barColour[j]);
+                    noStroke();
+                    rect(0, 0, this.barWidth, barHeight);
                 }
-                fill(this.barColour[j]);
-                rect(0, 0, this.barWidth, -currentValue * this.scale);
-                translate(0, -currentValue * this.scale);
-                total += currentValue * this.scale; // Update total height
+
+
+                if (this.chartType == "line") {
+                    stroke(255);
+                    strokeWeight(5);
+                    if (j === 1) {
+                        point(this.barWidth / 2, -currentValue * this.scale)
+                    }
+                    strokeWeight(2);
+                    if (i > 0) {
+                        stroke(255);
+                        strokeWeight(2);
+                        let x1 = (j - 1) * (this.barWidth + gap) + this.barWidth / 2;
+                        let y1 = -this.data[i - 1][this.xValue] * this.scale;
+                        let x2 = j * (this.barWidth + gap) + this.barWidth / 2;
+                        let y2 = -this.data[i][this.xValue] * this.scale;
+                        line(x1, y1, x2, y2);
+                    }
+
+                    translate(0, barHeight);
+                }
             }
+            
+
             pop();
+
+
 
             noStroke();
             fill(this.labelColour);
