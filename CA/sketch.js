@@ -292,7 +292,7 @@ function setup(){
     barCharts.push(new SingleLineChart(lineChart));
 
     //Pie Chart
-
+    
 }
 
 function draw() {

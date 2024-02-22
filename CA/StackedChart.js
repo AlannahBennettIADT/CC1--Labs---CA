@@ -2,24 +2,27 @@ class StackedChart {
     constructor(obj) {
         this.data = obj.data;
 
+        //Chart Properties
         this.chartWidth = obj.chartWidth;
         this.chartHeight = obj.chartHeight;
         this.chartType = obj.chartType;
-
         this.xPos = obj.xPos;
         this.yPos = obj.yPos;
         this.axisLineColour = obj.axisLineColour;
 
+        //Bar Properties
         this.barColour = obj.barColour;
         this.barWidth = obj.barWidth;
         this.yValue = obj.yValue;
         this.xValue = obj.xValue;
 
+        //Label Properties
         this.labelColour = obj.labelColour;
         this.labelRotation = obj.labelRotation;
         this.labelTextSize = obj.labelTextSize;
         this.YLabel = obj.YLabel;
         this.LabelFont = obj.labelFont;
+
         //Tick Properties
         this.tickWidth = obj.tickWidth;
         this.tickWeight = obj.tickWeight;
@@ -29,8 +32,8 @@ class StackedChart {
         this.tickPadding = obj.tickPadding;
         this.tickTextSize = obj.tickTextSize;
 
+        //Scale Properties
         // this.maxValue = max(this.data.map(d => d[this.yValue]));
-        // //this doesn't work
         this.maxValue = max(this.calculatingTotal());
         this.scale = int(this.chartHeight / this.maxValue);
     }
@@ -111,30 +114,7 @@ class StackedChart {
                     rect(0, 0, this.barWidth, barHeight);
                     translate(0, barHeight);
                 }
-
-
-                // if (this.chartType == "line") {
-                //     stroke(255);
-                //     strokeWeight(5);
-                //     if (j === 1) {
-                //         point(this.barWidth / 2, -currentValue * this.scale)
-                //     }
-                //     strokeWeight(2);
-                //     if (i > 0) {
-                //         stroke(255);
-                //         strokeWeight(2);
-                //         let x1 = (j - 1) * (this.barWidth + gap) + this.barWidth / 2;
-                //         let y1 = -this.data[i - 1][this.xValue] * this.scale;
-                //         let x2 = j * (this.barWidth + gap) + this.barWidth / 2;
-                //         let y2 = -this.data[i][this.xValue] * this.scale;
-                //         line(x1, y1, x2, y2);
-                //     }
-                // }
-
-                // translate(0, barHeight);
             }
-            
-
             pop();
 
 
@@ -163,15 +143,13 @@ class StackedChart {
             strokeWeight(1);
             stroke(255);
             let totalArray = this.calculatingTotal();
-            // line(0, -this.chartHeight / 2, this.chartWidth, -this.chartHeight / 2)
             let sum = 0;
-            for (let i = 0; i <totalArray.length; i++) {
-                    sum += (totalArray[i]);
-                    console.log(totalArray[i])
-                }
-            let avg = sum / (totalArray.length-1);
-            line(0,-avg, this.chartWidth, -avg)
-           console.log(avg)
+            for (let i = 0; i < totalArray.length; i++) {
+                sum += totalArray[i];
+            }
+            let avg = sum / totalArray.length;
+            let avgHeight = -avg * this.scale; 
+            line(0, avgHeight, this.chartWidth, avgHeight);
         }
 
 
@@ -191,6 +169,10 @@ class StackedChart {
             text(value.toFixed(2), -this.tickPadding - this.tickStrokeLength, -i * tickGap);
             pop();
         }
+
+
+
+        
         pop();
 
 
