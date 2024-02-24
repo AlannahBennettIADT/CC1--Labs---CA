@@ -22,6 +22,7 @@ class StackedChart {
         this.labelTextSize = obj.labelTextSize;
         this.YLabel = obj.YLabel;
         this.LabelFont = obj.labelFont;
+        this.XLabel = obj.XLabel;
 
         //Tick Properties
         this.tickWidth = obj.tickWidth;
@@ -83,11 +84,11 @@ class StackedChart {
 
         //this map gets all the labels for the x axis into one array
         let labels = this.data.map((l) => {
-            return l[this.xValue];
+            return l[this.XLabel];
         });
 
 
-        // console.log(this.yValue)
+        // console.log(this.XLabel)
         // console.log(labels)
 
         push();
@@ -131,7 +132,7 @@ class StackedChart {
             push();
             translate(this.barWidth / 2, 10);
             rotate(this.labelRotation);
-            // text(labels[i],0,0);
+            text(labels[i],0,0);
 
             pop();
             translate(gap + this.barWidth, 0);

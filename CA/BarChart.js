@@ -1,18 +1,18 @@
 class BarChart{
     constructor(obj){
         this.data = obj.data;
-
+  
         this.chartWidth=obj.chartWidth;
         this.chartHeight=obj.chartHeight;
         this.xPos = obj.xPos;
         this.yPos = obj.yPos;
         this.axisLineColour = obj.axisLineColour;
-
+  
         this.barColour = obj.barColour;
         this.barWidth = obj.barWidth;
         this.yValue = obj.yValue;
         this.xValue = obj.xValue;
-
+  
         this.labelColour = obj.labelColour;
         this.labelRotation = obj.labelRotation;
         this.labelTextSize = obj.labelTextSize;
@@ -30,17 +30,17 @@ class BarChart{
         this.maxValue = max(this.data.map(d => d[this.yValue]));
         this.scale = int(this.chartHeight / this.maxValue);
     }
-
+  
     render(){
-
-
+  
+  
         push ();
-
+  
         translate (this.xPos,this.yPos);
         stroke(this.axisLineColour)
         line (0,0,0,-this.chartHeight);
         line (0,0,this.chartWidth,0);
-
+  
         noStroke();
         fill(255);
         textSize(16);
@@ -55,9 +55,9 @@ class BarChart{
         //     line(0,0,-5,0);
         //     pop();
         // }
-
+  
        
-
+  
         // for(let i=0; i<=this.numTicks; i++){
         //     push();
         //     noStroke();
@@ -69,14 +69,14 @@ class BarChart{
         //    pop();
         // }
      
-
+  
         let gap = (this.chartWidth - (this.data.length * this.barWidth))/(this.data.length +1);
-
+  
         //this map gets all the labels for the x axis into one array
         let labels = this.data.map((age)=>{
             return age[this.xValue];
         }); 
-
+  
       
         push();
         translate(gap,0);
@@ -84,8 +84,8 @@ class BarChart{
             noStroke();
             fill(this.barColour[i]);
             rect (0,0,this.barWidth, -this.data[i][this.yValue]* this.scale);
-
-
+  
+  
             noStroke();
             fill(this.labelColour);
             if(this.labelRotation == 0){
@@ -94,24 +94,24 @@ class BarChart{
                 textAlign(LEFT,CENTER);
             }
             textSize(this.labelTextSize);
-
+  
             push();
             translate(this.barWidth/2,10);
             rotate(this.labelRotation);
             text(labels[i],0,0);
-
+  
             pop();
             
             translate(gap+this.barWidth,0);
         }
         pop();
-
-
-
+  
+  
+  
         stroke(this.tickColour);
         strokeWeight(this.tickWeight);
-
-
+  
+  
         let tickGap = this.chartHeight/this.numTicks;
         for(let i = 0; i<=this.numTicks; i++){
             push();
@@ -124,7 +124,7 @@ class BarChart{
             pop();
         }
         pop ();
-
+  
         
     }
-}
+  }

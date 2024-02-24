@@ -8,7 +8,7 @@ let cleanData03=[];
 let numRows;
 let labels 
 let colours = ["#355C7D", "6C5B7B", "#C06C84", "#F67280","F8B195","#355C7D", "6C5B7B", "#C06C84", "#F67280","F8B195"];
-let colours2 =  ["#355C7D", "#C06C84"];
+let colours2 =  ["#C06C84","#355C7D"];
 
 let fontLight;
 let fontReg;
@@ -17,7 +17,7 @@ let fontBold;
 function preload(){
     data01 = loadTable("data/genderbalance.csv", "csv", "header");
     data02 = loadTable("data/stackedData.csv", "csv", "header");
-    data03 = loadTable("data/Combined.csv", "csv", "header");
+    data03 = loadTable("data/newData.csv", "csv", "header");
     fontLight = loadFont("Fonts/Montserrat-Light.ttf");
     fontReg = loadFont("Fonts/Montserrat-Regular.ttf");
     fontBold = loadFont("Fonts/Montserrat-Bold.ttf");
@@ -25,7 +25,7 @@ function preload(){
 
 function setup(){
     background(50)
-    createCanvas(1500,1000);
+    createCanvas(1800,1200);
     angleMode(DEGREES);
     noLoop();
 
@@ -51,27 +51,29 @@ function setup(){
     
 
     //Filtering Data for every bar chart
+
+    //Only Female 2023 Data
     let female2023data = cleanData01.filter((cleanData01)=> cleanData01.Sex == "Female" && cleanData01.Year == "2023");
     console.log(female2023data);
 
+    //Only Male 2023 Data
     let male2023data = cleanData01.filter((cleanData01)=> cleanData01.Sex == "Male" && cleanData01.Year == "2023");
     console.log(male2023data);
 
-
-    
+    //Only 2023 Data
     let data2023 = cleanData01.filter((cleanData01)=>  cleanData01.Year == "2023");
     console.log(data2023);
 
-    // let CEOLineData = cleanData01.filter((cleanData01)=> cleanData01.Roles == "Chief Executive Officers (CEOs)");
-    let CEOLineData = cleanData01;
-    console.log(CEOLineData);
+    //Only 2023 Data for 100% Stacked Bar Chart
+    let stackedfull = cleanData03.filter((cleanData03)=> cleanData03.Year=="2023");
 
-    let malefemale2023Stacked = cleanData02;
-    console.log(malefemale2023Stacked);
+    //Only 2021 Data for Stacked Bar Chart with average line graph
+    let stackedline = cleanData03.filter((cleanData03)=> cleanData03.Year=="2021");
 
 
     let stacked = cleanData03;
     console.log(stacked);
+
 
 
 
@@ -173,7 +175,7 @@ function setup(){
 
 
     let lineChart ={
-        data:female2023data,
+        data:stacked,
 
         chartHeight: 250,
         chartWidth: 300,
@@ -185,8 +187,8 @@ function setup(){
         barColour: colours2,
         barWidth:0,
 
-        yValue: "VALUE",
-        xValue: "Roles",
+        yValue: "Total",
+        xValue: "Year",
         YLabel: " % Male Vs Female CEO's over time",
         labelFont: fontBold,
 
@@ -205,7 +207,7 @@ function setup(){
     }
 
     let stackedBarChart ={
-        data:stacked,
+        data:stackedfull,
 
         chartHeight: 250,
         chartWidth: 300,
@@ -215,12 +217,13 @@ function setup(){
         yPos:850,
 
         axisLineColour: "#d9d9d9",
-        barWidth: 25,
+        barWidth: 35,
         barColour: colours2,
 
         yValue:"Total",
         xValue: ["Male","Female"], 
-        YLabel: "Men vs Women in Leadership Positions (100%)",
+        XLabel: "Roles",
+        YLabel: "Men vs Women in Leadership Positions 2023",
         labelFont: fontBold,
 
         labelColour: "#ffffff",
@@ -239,7 +242,7 @@ function setup(){
 
 
     let stackedBarChart02 ={
-        data:stacked,
+        data:stackedline,
 
         chartHeight: 250,
         chartWidth: 300,
@@ -249,13 +252,14 @@ function setup(){
         yPos:850,
 
         axisLineColour: "#d9d9d9",
-        barWidth: 25,
+        barWidth: 35,
         barColour: colours2,
 
         yValue: "Total",
         xValue: ["Male","Female"],
         YLabel: "Men vs Women in Leadership Positions (Normal)",
         labelFont: fontBold,
+        XLabel: "Roles",
 
         labelColour: "#ffffff",
         labelRotation: 90,
@@ -270,6 +274,39 @@ function setup(){
         numTicks: 5
     }
 
+
+    let pieChart ={
+        data:stackedline,
+
+        chartHeight: 250,
+        chartWidth: 300,
+        chartType: "full",
+
+        xPos: 1500,
+        yPos:600,
+
+        axisLineColour: "#d9d9d9",
+        barWidth: 35,
+        barColour: colours,
+
+        yValue:"Total",
+        xValue: "Female", 
+        XLabel: "Roles",
+        YLabel: "Men vs Women in Leadership Positions 2023",
+        labelFont: fontBold,
+
+        labelColour: "#ffffff",
+        labelRotation: 90,
+        labelTextSize: 10,
+
+        tickWidth: 5,
+        tickWeight: 1,
+        tickColour: "#ffffff",
+        tickStrokeLength: 10,
+        tickPadding:10,
+        tickTextSize: 14,
+        numTicks: 5
+    }
 
     //These Lines push  each chart object to the barCharts Array: 
 
@@ -289,10 +326,12 @@ function setup(){
     barCharts.push(new StackedChart(stackedBarChart02));
 
     //Line Chart
-    barCharts.push(new SingleLineChart(lineChart));
+    barCharts.push(new LineChart(lineChart));
 
     //Pie Chart
-    
+    barCharts.push(new PieChart(pieChart));
+
+
 }
 
 function draw() {

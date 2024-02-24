@@ -37,50 +37,56 @@ class LineChart {
         this.scale = int(this.chartHeight / this.maxValue);
     }
 
+
     render() {
         push();
-
+    
         translate(this.xPos, this.yPos);
         stroke(this.axisLineColour);
         line(0, 0, 0, -this.chartHeight);
         line(0, 0, this.chartWidth, 0);
-
+    
         noStroke();
         fill(255);
         textSize(16);
         textAlign(CENTER);
         textFont(this.LabelFont);
-        text(this.YLabel, this.chartHeight/2, -this.chartHeight - this.scale*3);
-
+        text(this.YLabel, this.chartWidth / 2, -this.chartHeight - this.scale * 3);
+    
         let gap = (this.chartWidth - (this.data.length * this.barWidth)) / (this.data.length + 1);
-
-        let labels = this.data.map((age) => {
-            return age[this.xValue];
+    
+        let labels = this.data.map((entry) => {
+            return entry[this.xValue];
         });
-
-        let dataset1 = this.data.filter((M) => M.Sex === "Male");
-        let dataset2 = this.data.filter((F) => F.Sex === "Female");
-
-        let newData = [];
-        newData.push(dataset1, dataset2);
-
+    
+        let femaleData = this.data.map(entry => parseFloat(entry['Female']));
+        let maleData = this.data.map(entry => parseFloat(entry['Male']));
+    
+      
+    
         push();
         translate(gap, 0);
-        newData.forEach((dataSet, c) => {
-            for (let i = 0; i < dataSet.length; i++) {
-                strokeWeight(6);
+    
+        [femaleData, maleData].forEach((data, index) => {
+            data.forEach((value, i) => {
+                let x = i * gap;
+                let y = -value * this.scale;
+                strokeWeight(4)
                 stroke(255);
-                point(i * (this.barWidth + gap), -dataSet[i][this.yValue] * this.scale);
-
-                strokeWeight(2);
-                stroke(this.barColour[c]);
+                point(x, y); // Draw points
+    
+                // Connect points with lines
+                strokeWeight(2)
+                stroke(this.barColour[index])
                 if (i > 0) {
-                    let x1 = (i - 1) * (this.barWidth + gap);
-                    let y1 = -dataSet[i - 1][this.yValue] * this.scale;
-                    let x2 = i * (this.barWidth + gap);     
-                    let y2 = -dataSet[i][this.yValue] * this.scale;
+                    let x1 = (i - 1) * gap;
+                    let y1 = -data[i - 1] * this.scale;
+                    let x2 = i * gap;
+                    let y2 = -value * this.scale;
                     line(x1, y1, x2, y2);
                 }
+
+
 
                 noStroke();
                 fill(this.labelColour);
@@ -95,24 +101,30 @@ class LineChart {
                 rotate(this.labelRotation);
                 text(labels[i], 0, 0);
                 pop();  
-            }
+            });
         });
+    
         pop();
-
+    
+        // Render ticks
         stroke(this.tickColour);
         strokeWeight(this.tickWeight);
-
+    
         let tickGap = this.chartHeight / this.numTicks;
         for (let i = 0; i <= this.numTicks; i++) {
-            push();
             line(0, -i * tickGap, -this.tickWidth, -i * tickGap);
             noStroke();
-            textSize(10);
+            textSize(this.tickTextSize);
             textAlign(RIGHT, CENTER);
             let value = this.maxValue / this.numTicks * i;
             text(value.toFixed(2), -this.tickPadding - this.tickStrokeLength, -i * tickGap);
-            pop();
         }
+    
         pop();
     }
+    
+    
+    
+    
+    
 }
