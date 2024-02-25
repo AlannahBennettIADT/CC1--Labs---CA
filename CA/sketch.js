@@ -1,4 +1,4 @@
-let barCharts = [];
+let Charts = [];
 let data01;
 let data02;
 let data03;
@@ -25,9 +25,12 @@ function preload(){
 
 function setup(){
     background(50)
-    createCanvas(1800,1200);
+    createCanvas(2000,1200);
     angleMode(DEGREES);
     noLoop();
+
+
+    //taking the csv's rows and getting the objects out of them into an array of clean data 
 
     numRows = data01.rows.length;
     for(let i=0;i<numRows;i++){
@@ -45,6 +48,7 @@ function setup(){
     }
 
 
+    //checking all data is correct
     console.log(cleanData01)
     console.log(cleanData02)
     console.log(cleanData03)
@@ -70,10 +74,13 @@ function setup(){
     //Only 2021 Data for Stacked Bar Chart with average line graph
     let stackedline = cleanData03.filter((cleanData03)=> cleanData03.Year=="2021");
 
-
+    //this is just all of clean data 03
     let stacked = cleanData03;
     console.log(stacked);
 
+    //this is filtering the data to just get the CEO and CFO roles
+    let ceoData = cleanData03.filter((cleanData03)=> cleanData03.Roles=="Chief Executive Officers (CEOs)" || cleanData03.Roles=="Chief Financial Officers (CFOs)");
+    console.log(ceoData)
 
 
 
@@ -83,20 +90,22 @@ function setup(){
         chartHeight: 250,
         chartWidth: 300,
 
-        xPos: 100,
-        yPos:380,
+        xPos: 150,
+        yPos:500,
 
         axisLineColour: "#d9d9d9",
-        barWidth: 25,
+        axisLineWeight: 3,
+        barWidth: 30,
         barColour: colours,
 
         yValue: "VALUE",
         xValue: "Roles",
-        YLabel: " No. of Women in Leadership Positions 2023 ",
+        YLabel: "No.of Women in Leadership Positions 2023 ",
+        YLabelSize: 20,
         labelFont: fontBold,
 
         labelColour: "#ffffff",
-        labelRotation: 90,
+        labelRotation: 70,
         labelTextSize: 10,
 
         tickWidth: 5,
@@ -115,8 +124,8 @@ function setup(){
         chartHeight: 250,
         chartWidth: 300,
 
-        xPos: 1000,
-        yPos:380,
+        xPos: 1050,
+        yPos:500,
 
         axisLineColour: "#d9d9d9",
         barWidth: 25,
@@ -126,6 +135,7 @@ function setup(){
         xValue: "Roles",
         YLabel: "Leadership Positions 2023 ",
         labelFont: fontBold,
+        YLabelSize: 20,
 
         labelColour: "#ffffff",
         labelRotation: 90,
@@ -147,8 +157,8 @@ function setup(){
         chartHeight: 250,
         chartWidth: 300,
 
-        xPos: 600,
-        yPos:380,
+        xPos: 650,
+        yPos:500,
 
         axisLineColour: "#d9d9d9",
         barColour: colours,
@@ -175,13 +185,13 @@ function setup(){
 
 
     let lineChart ={
-        data:stacked,
+        data:ceoData,
 
         chartHeight: 250,
         chartWidth: 300,
 
         xPos: 600,
-        yPos:850,
+        yPos:1000,
 
         axisLineColour: "#d9d9d9",
         barColour: colours2,
@@ -214,7 +224,7 @@ function setup(){
         chartType: "full",
 
         xPos: 1000,
-        yPos:850,
+        yPos:1000,
 
         axisLineColour: "#d9d9d9",
         barWidth: 35,
@@ -249,7 +259,7 @@ function setup(){
         chartType: "line",
 
         xPos: 100,
-        yPos:850,
+        yPos:1000,
 
         axisLineColour: "#d9d9d9",
         barWidth: 35,
@@ -282,7 +292,7 @@ function setup(){
         chartWidth: 300,
         chartType: "full",
 
-        xPos: 1600,
+        xPos: 1650,
         yPos:600,
 
         axisLineColour: "#d9d9d9",
@@ -294,10 +304,11 @@ function setup(){
         XLabel: "Roles",
         YLabel: "Women's Roles In Leadership 2021",
         labelFont: fontBold,
+        YLabelSize: 20,
 
         labelColour: "#ffffff",
         labelRotation: 90,
-        labelTextSize: 15,
+        labelTextSize: 13,
 
         tickWidth: 5,
         tickWeight: 1,
@@ -308,28 +319,28 @@ function setup(){
         numTicks: 5
     }
 
-    //These Lines push  each chart object to the barCharts Array: 
+    //These Lines push  each chart object to the Charts Array: 
 
     //Bar Chart 01
-    barCharts.push(new BarChart(barChart));
+    Charts.push(new BarChart(barChart));
 
     //Bar Chart 02 
-    barCharts.push(new BarChart(barChart02));
+    Charts.push(new BarChart(barChart02));
 
     //Horizontal Bar Chart
-    barCharts.push(new HorizontalBar(horizontalBarChart));
+    Charts.push(new HorizontalBar(horizontalBarChart));
 
     //100% Stacked
-    barCharts.push(new StackedChart(stackedBarChart));
+    Charts.push(new StackedChart(stackedBarChart));
 
     //Normal Stacked
-    barCharts.push(new StackedChart(stackedBarChart02));
+    Charts.push(new StackedChart(stackedBarChart02));
 
     //Line Chart
-    barCharts.push(new LineChart(lineChart));
+    Charts.push(new LineChart(lineChart));
 
     //Pie Chart
-    barCharts.push(new PieChart(pieChart));
+    Charts.push(new PieChart(pieChart));
 
 
 }
@@ -347,7 +358,7 @@ function draw() {
     //Default Font for charts
     textFont(fontLight);
     //Displaying all charts in the array
-    barCharts.forEach(bar => bar.render())
+    Charts.forEach(bar => bar.render())
 
 }
 
