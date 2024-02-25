@@ -282,7 +282,7 @@ function setup(){
         chartWidth: 300,
         chartType: "full",
 
-        xPos: 1500,
+        xPos: 1600,
         yPos:600,
 
         axisLineColour: "#d9d9d9",
@@ -292,12 +292,12 @@ function setup(){
         yValue:"Total",
         xValue: "Female", 
         XLabel: "Roles",
-        YLabel: "Men vs Women in Leadership Positions 2023",
+        YLabel: "Women's Roles In Leadership 2021",
         labelFont: fontBold,
 
         labelColour: "#ffffff",
         labelRotation: 90,
-        labelTextSize: 10,
+        labelTextSize: 15,
 
         tickWidth: 5,
         tickWeight: 1,
