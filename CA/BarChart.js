@@ -19,6 +19,7 @@ class BarChart{
         this.labelTextSize = obj.labelTextSize;
         this.YLabel = obj.YLabel;
         this.LabelFont = obj.labelFont;
+        this.YLabelOffset = obj.YLabelOffset;
         this.YLabelSize = obj.YLabelSize;
         
         //Tick Properties
@@ -50,7 +51,7 @@ class BarChart{
         textSize(this.YLabelSize);
         textAlign(CENTER);
         textFont(this.LabelFont);
-        text(this.YLabel,this.chartHeight/2,-this.chartHeight-this.scale*3);
+        text(this.YLabel,this.chartHeight/2,-this.chartHeight-this.YLabelOffset);
         
      
         let gap = (this.chartWidth - (this.data.length * this.barWidth))/(this.data.length +1);
@@ -100,7 +101,7 @@ class BarChart{
             push();
             line(0,-i*tickGap,-this.tickWidth,-i*tickGap);
             noStroke();
-            textSize(10);
+            textSize(this.tickTextSize);
             textAlign(RIGHT,CENTER);
             let value = this.maxValue/this.numTicks*i;
             text(value.toFixed(2), -this.tickPadding-this.tickStrokeLength,-i*tickGap);

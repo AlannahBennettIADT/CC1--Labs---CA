@@ -1,3 +1,7 @@
+//Alannah CC1 - Graphs / Data CA
+
+
+//initializing variables + arrays
 let Charts = [];
 let data01;
 let data02;
@@ -84,6 +88,7 @@ function setup(){
 
 
 
+    //first Bar Chart
     let barChart ={
         data:female2023data,
 
@@ -102,6 +107,7 @@ function setup(){
         xValue: "Roles",
         YLabel: "No.of Women in Leadership Positions 2023 ",
         YLabelSize: 20,
+        YLabelOffset:30,
         labelFont: fontBold,
 
         labelColour: "#ffffff",
@@ -128,13 +134,15 @@ function setup(){
         yPos:500,
 
         axisLineColour: "#d9d9d9",
-        barWidth: 25,
+        axisLineWeight: 3,
+        barWidth: 20,
         barColour: colours,
 
         yValue: "VALUE",
         xValue: "Roles",
         YLabel: "Leadership Positions 2023 ",
         labelFont: fontBold,
+        YLabelOffset:30,
         YLabelSize: 20,
 
         labelColour: "#ffffff",
@@ -161,17 +169,22 @@ function setup(){
         yPos:500,
 
         axisLineColour: "#d9d9d9",
+        axisLineWeight: 3,
         barColour: colours,
         barWidth:25,
 
         yValue: "VALUE",
         xValue: "Roles",
         YLabel: " No. of Men in Leadership Positions 2023 ",
+        YLabelOffset:30,
+        YLabelSize: 20,
         labelFont: fontBold,
 
         labelColour: "#ffffff",
         labelRotation: 0,
         labelTextSize: 10,
+
+        endBarColour:"#ffffff",
 
         tickWidth: 5,
         tickWeight: 1,
@@ -190,21 +203,25 @@ function setup(){
         chartHeight: 250,
         chartWidth: 300,
 
-        xPos: 600,
+        xPos: 620,
         yPos:1000,
 
         axisLineColour: "#d9d9d9",
+        axisLineWeight: 3,
         barColour: colours2,
         barWidth:0,
 
         yValue: "Total",
         xValue: "Year",
-        YLabel: " % Male Vs Female CEO's over time",
+        YLabel: "Male vs Female CEO's over time",
+        YLabelOffset:30,
+        YLabelSize: 20,
         labelFont: fontBold,
+        legendLabels: ["Male","Female"],
 
         labelColour: "#ffffff",
         labelRotation: 90,
-        labelTextSize: 10,
+        labelTextSize: 14,
 
         tickWidth: 5,
         tickWeight: 1,
@@ -223,10 +240,11 @@ function setup(){
         chartWidth: 300,
         chartType: "full",
 
-        xPos: 1000,
+        xPos: 1050,
         yPos:1000,
 
         axisLineColour: "#d9d9d9",
+        axisLineWeight: 3,
         barWidth: 35,
         barColour: colours2,
 
@@ -234,6 +252,8 @@ function setup(){
         xValue: ["Male","Female"], 
         XLabel: "Roles",
         YLabel: "Men vs Women in Leadership Positions 2023",
+        YLabelOffset:30,
+        YLabelSize: 20,
         labelFont: fontBold,
 
         labelColour: "#ffffff",
@@ -258,17 +278,23 @@ function setup(){
         chartWidth: 300,
         chartType: "line",
 
-        xPos: 100,
+        lineType: "dotted",
+        lineWeight: 3,
+
+        xPos: 150,
         yPos:1000,
 
         axisLineColour: "#d9d9d9",
+        axisLineWeight: 3,
         barWidth: 35,
         barColour: colours2,
 
         yValue: "Total",
         xValue: ["Male","Female"],
-        YLabel: "Men vs Women in Leadership Positions (Normal)",
+        YLabel: "Men vs Women in Leadership Positions 2021",
         labelFont: fontBold,
+        YLabelOffset:30,
+        YLabelSize: 20,
         XLabel: "Roles",
 
         labelColour: "#ffffff",
@@ -292,7 +318,7 @@ function setup(){
         chartWidth: 300,
         chartType: "full",
 
-        xPos: 1650,
+        xPos: 1700,
         yPos:600,
 
         axisLineColour: "#d9d9d9",

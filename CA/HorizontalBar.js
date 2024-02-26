@@ -12,6 +12,7 @@ class HorizontalBar{
 
         //Axis Properties
         this.axisLineColour = obj.axisLineColour;
+        this.axisLineWeight = obj.axisLineWeight;
         this.barWidth = obj.barWidth;
         this.yValue = obj.yValue;
         this.xValue = obj.xValue;
@@ -19,12 +20,15 @@ class HorizontalBar{
         //Bar Properties
         this.barColour = obj.barColour;
         this.labelColour = obj.labelColour;
+        this.endBarColour = obj.endBarColour;
 
         //Label Properties
         this.labelRotation = obj.labelRotation;
         this.labelTextSize = obj.labelTextSize;
         this.YLabel = obj.YLabel;
+        this.YLabelSize = obj.YLabelSize;
         this.LabelFont = obj.labelFont;
+        this.YLabelOffset = obj.YLabelOffset;
 
         //Tick Properties
         this.tickWidth = obj.tickWidth;
@@ -46,17 +50,17 @@ class HorizontalBar{
         //Creating the Chart Axis
         translate (this.xPos,this.yPos);
         stroke(this.axisLineColour)
+        strokeWeight(this.axisLineWeight);
         line (0,0,0,-this.chartHeight);
         line (0,0,this.chartWidth,0);
 
         //Chart Title
         noStroke();
-        fill(255);
-        textSize(16);
+        fill(this.labelColour);
+        textSize(this.YLabelSize);
         textAlign(CENTER);
         textFont(this.LabelFont);
-        textFont(this.LabelFont);
-        text(this.YLabel,this.chartHeight/2,-this.chartHeight-this.scale*3);
+        text(this.YLabel,this.chartHeight/2,-this.chartHeight-this.YLabelOffset);
         
 
         //this map gets all the labels for the x axis into one array
@@ -74,10 +78,11 @@ class HorizontalBar{
             noStroke();
             fill(this.barColour[i]);
             rect (0,0,this.data[i][this.yValue]* this.scale,this.barWidth);
-            textAlign(CENTER,LEFT);
-            textSize(13);
-            fill(255);
-            text(this.data[i][this.yValue],this.data[i][this.yValue]*this.scale+gap/2,this.barWidth);
+            textAlign(CENTER);
+            textSize(this.tickTextSize);
+            fill(this.endBarColour);
+            //numbers at the end of the bars
+            text(this.data[i][this.yValue],this.data[i][this.yValue]*this.scale+gap,this.barWidth/2);
 
             noStroke();
             fill(this.labelColour);
@@ -110,7 +115,7 @@ class HorizontalBar{
             push();
             line(i*tickGap,0,i*tickGap,this.tickWidth,);
             noStroke();
-            textSize(10);
+            textSize(this.tickTextSize);
             textAlign(CENTER,CENTER);
             let value = round(this.maxValue/this.numTicks*i);
             text(value,i*tickGap,this.tickPadding+this.tickStrokeLength);

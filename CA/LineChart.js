@@ -10,6 +10,7 @@ class LineChart {
         this.xPos = obj.xPos;
         this.yPos = obj.yPos;
         this.axisLineColour = obj.axisLineColour;
+        this.axisLineWeight = obj.axisLineWeight;
 
         // Bar Propeties
         this.barColour = obj.barColour;
@@ -20,9 +21,14 @@ class LineChart {
 
         // Label Properties
         this.YLabel = obj.YLabel;
+        this.YLabelOffset = obj.YLabelOffset;
+        this.YLabelSize = obj.YLabelSize;
+    
         this.labelRotation = obj.labelRotation;
         this.labelTextSize = obj.labelTextSize;
         this.LabelFont = obj.labelFont;
+
+        this.legendLabels = obj.legendLabels;
 
         // Tick Properties
         this.tickWidth = obj.tickWidth;
@@ -43,31 +49,63 @@ class LineChart {
     
         translate(this.xPos, this.yPos);
         stroke(this.axisLineColour);
+        strokeWeight(this.axisLineWeight)
         line(0, 0, 0, -this.chartHeight);
         line(0, 0, this.chartWidth, 0);
     
+ 
         noStroke();
-        fill(255);
-        textSize(16);
+        fill(this.labelColour);
+        textSize(this.YLabelSize);
         textAlign(CENTER);
         textFont(this.LabelFont);
-        text(this.YLabel, this.chartWidth / 2, -this.chartHeight - this.scale * 3);
-    
+        text(this.YLabel,this.chartHeight/2,-this.chartHeight-this.YLabelOffset);
+
+
+        //X Axis Label
+        text(this.xValue,this.chartWidth/2,this.chartHeight/3.5)
+
+
+        //
+        for (let i = 0; i < this.legendLabels.length; i++) {
+
+            fill(this.barColour[i]);
+            ellipse(this.chartWidth - 100, 80 + (i * 50), 15, 15); 
+            
+            textAlign(LEFT, CENTER);
+            fill(this.tickColour); 
+            textSize(this.labelTextSize); 
+            text(this.legendLabels[i], this.chartWidth - 100 + 20, 80 + (i * 50));
+          }
+
+  
         let gap = (this.chartWidth - (this.data.length * this.barWidth)) / (this.data.length + 1);
     
         let labels = this.data.map((entry) => {
             return entry[this.xValue];
         });
     
-        let femaleData = this.data.map(entry => parseFloat(entry['Female']));
-        let maleData = this.data.map(entry => parseFloat(entry['Male']));
-    
-      
+        //old code
+
+        // let data01 = [];
+        // let data02 = [];
+
+        //     for (let i = 0; i < this.data.length; i++) {
+        //     data01.push(parseFloat(this.data[i]['Female']));
+        //     data02.push(parseFloat(this.data[i]['Male']));
+        //     }
+
+
+
+        let data01 = this.data.map(entry => parseFloat(entry['Female']));
+        let data02 = this.data.map(entry => parseFloat(entry['Male']));
+
+
     
         push();
         translate(gap, 0);
     
-        [femaleData, maleData].forEach((data, index) => {
+        [data01, data02].forEach((data, index) => {
             data.forEach((value, i) => {
                 let x = i * gap;
                 let y = -value * this.scale;

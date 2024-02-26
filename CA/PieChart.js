@@ -102,7 +102,7 @@ class PieChart {
     for (let i = 0; i < angles.length; i++) {
       fill(this.barColour[i]);
       noStroke(); 
-      arc(this.xPos, this.yPos, this.chartWidth, this.chartWidth, prevAngle, prevAngle + angles[i], PIE);
+      arc(this.xPos, this.yPos, this.chartWidth, this.chartWidth, prevAngle, prevAngle + angles[i]);
 
       // Labels
       //Same Labels as other graphs
@@ -131,7 +131,7 @@ class PieChart {
 
       fill(0);
       textSize(20)
-      text(round(angles[i]) +"%",labelX,labelY);  
+      text(round(angles[i]),labelX,labelY);  
 
 
       //this line adds the drawn arc to the last angle, so the next one knows where to draw
