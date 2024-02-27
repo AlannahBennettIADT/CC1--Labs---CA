@@ -10,6 +10,9 @@ class StackedChart {
         this.yPos = obj.yPos;
         this.axisLineColour = obj.axisLineColour;
         this.axisLineWeight = obj.axisLineWeight;
+        this.axislabelRotation = obj.axislabelRotation;
+        this.yAxisLabelText = obj.yAxisLabelText;
+        this.AxislabelFont = obj.AxislabelFont;
 
         //Bar Properties
         this.barColour = obj.barColour;
@@ -36,7 +39,7 @@ class StackedChart {
         this.tickPadding = obj.tickPadding;
         this.tickTextSize = obj.tickTextSize;
 
-        
+
         this.lineType = obj.lineType;
         this.lineWeight = obj.lineWeight;
 
@@ -70,7 +73,7 @@ class StackedChart {
     render() {
         console.log(this.maxValue);
         console.log(this.scale);
-        
+
         push();
 
         translate(this.xPos, this.yPos);
@@ -85,7 +88,15 @@ class StackedChart {
         textSize(this.YLabelSize);
         textAlign(CENTER);
         textFont(this.LabelFont);
-        text(this.YLabel,this.chartHeight/2,-this.chartHeight-this.YLabelOffset);
+        text(this.YLabel, this.chartHeight / 2, -this.chartHeight - this.YLabelOffset);
+
+
+        textSize(this.tickTextSize)
+        push();
+        rotate(this.axislabelRotation);
+        textFont(this.AxislabelFont)
+        text(this.yAxisLabelText, this.chartWidth / 3, -this.chartHeight / 3)
+        pop();
 
 
         let gap = (this.chartWidth - (this.data.length * this.barWidth)) / (this.data.length + 1);
@@ -140,7 +151,7 @@ class StackedChart {
             push();
             translate(this.barWidth / 2, 10);
             rotate(this.labelRotation);
-            text(labels[i],0,0);
+            text(labels[i], 0, 0);
 
             pop();
             translate(gap + this.barWidth, 0);
@@ -157,11 +168,12 @@ class StackedChart {
                 sum += totalArray[i];
             }
             let avg = sum / totalArray.length;
-            let avgHeight = -avg * this.scale; 
-     
-            if(this.lineType == "dotted"){
+            let avgHeight = -avg * this.scale;
+            console.log(avgHeight)
+
+            if (this.lineType == "dotted") {
                 //found this for dashed line online the params can be changed to alter dash length ( could do the dashed line in a loop also)
-                drawingContext.setLineDash([10,10]);
+                drawingContext.setLineDash([10, 10]);
                 line(0, avgHeight, this.chartWidth, avgHeight);
             } else {
                 line(0, avgHeight, this.chartWidth, avgHeight);
@@ -169,7 +181,7 @@ class StackedChart {
         }
 
 
-
+        //Creating Ticks
         stroke(this.tickColour);
         strokeWeight(this.tickWeight);
 
@@ -186,11 +198,6 @@ class StackedChart {
             pop();
         }
 
-
-
-        
         pop();
-
-
     }
 }

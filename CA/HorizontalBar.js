@@ -13,6 +13,7 @@ class HorizontalBar{
         //Axis Properties
         this.axisLineColour = obj.axisLineColour;
         this.axisLineWeight = obj.axisLineWeight;
+        this.AxislabelFont = obj.AxislabelFont;
         this.barWidth = obj.barWidth;
         this.yValue = obj.yValue;
         this.xValue = obj.xValue;
@@ -61,6 +62,14 @@ class HorizontalBar{
         textAlign(CENTER);
         textFont(this.LabelFont);
         text(this.YLabel,this.chartHeight/2,-this.chartHeight-this.YLabelOffset);
+
+        //X Axis Label
+        textSize(this.tickTextSize)
+        textFont(this.AxislabelFont);
+        text(this.yValue,this.chartWidth/2,this.chartHeight/4)
+
+        //Anything else will be this font
+        textFont(this.LabelFont);
         
 
         //this map gets all the labels for the x axis into one array

@@ -127,11 +127,19 @@ class PieChart {
 
       stroke(0);
       strokeWeight(1);
-      line(labelXPos,labelYPos,labelX,labelY)
+      line(labelXPos,labelYPos,labelX,labelY);
 
       fill(0);
-      textSize(20)
-      text(round(angles[i]),labelX,labelY);  
+      textSize(20);
+
+      //getting percentages:
+      let percentages =[];
+      for(let i = 0; i<angles.length; i++){
+        let percentage =( angles[i]/360 )* 100;
+        percentages.push(percentage);
+      }
+      
+      text(round(percentages[i])+"%",labelX,labelY);  
 
 
       //this line adds the drawn arc to the last angle, so the next one knows where to draw

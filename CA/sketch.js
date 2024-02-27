@@ -17,6 +17,7 @@ let colours2 =  ["#C06C84","#355C7D"];
 let fontLight;
 let fontReg;
 let fontBold;
+let fontItalic;
 
 function preload(){
     data01 = loadTable("data/genderbalance.csv", "csv", "header");
@@ -25,6 +26,7 @@ function preload(){
     fontLight = loadFont("Fonts/Montserrat-Light.ttf");
     fontReg = loadFont("Fonts/Montserrat-Regular.ttf");
     fontBold = loadFont("Fonts/Montserrat-Bold.ttf");
+    fontItalic = loadFont("Fonts/Montserrat-Italic.ttf");
 }
 
 function setup(){
@@ -100,6 +102,9 @@ function setup(){
 
         axisLineColour: "#d9d9d9",
         axisLineWeight: 3,
+        axislabelRotation:270,
+        AxislabelFont: fontItalic,
+        yAxisLabelText:"Number of Women",
         barWidth: 30,
         barColour: colours,
 
@@ -111,7 +116,7 @@ function setup(){
         labelFont: fontBold,
 
         labelColour: "#ffffff",
-        labelRotation: 70,
+        labelRotation: 90,
         labelTextSize: 10,
 
         tickWidth: 5,
@@ -130,11 +135,14 @@ function setup(){
         chartHeight: 250,
         chartWidth: 300,
 
-        xPos: 1050,
+        xPos: 1100,
         yPos:500,
 
         axisLineColour: "#d9d9d9",
         axisLineWeight: 3,
+        axislabelRotation:270,  
+        yAxisLabelText:"Number of People",
+        AxislabelFont: fontItalic,
         barWidth: 20,
         barColour: colours,
 
@@ -170,6 +178,7 @@ function setup(){
 
         axisLineColour: "#d9d9d9",
         axisLineWeight: 3,
+        AxislabelFont: fontItalic,
         barColour: colours,
         barWidth:25,
 
@@ -208,6 +217,9 @@ function setup(){
 
         axisLineColour: "#d9d9d9",
         axisLineWeight: 3,
+        axislabelRotation:270,  
+        AxislabelFont: fontItalic,
+        yAxisLabelText:"Number of CEO's",
         barColour: colours2,
         barWidth:0,
 
@@ -239,12 +251,17 @@ function setup(){
         chartHeight: 250,
         chartWidth: 300,
         chartType: "full",
+        lineType: "normal",
+        lineWeight: 3,
 
-        xPos: 1050,
+        xPos: 1100,
         yPos:1000,
 
         axisLineColour: "#d9d9d9",
         axisLineWeight: 3,
+        axislabelRotation:270,  
+        AxislabelFont: fontItalic,
+        yAxisLabelText:"Total Men vs Women",
         barWidth: 35,
         barColour: colours2,
 
@@ -286,6 +303,9 @@ function setup(){
 
         axisLineColour: "#d9d9d9",
         axisLineWeight: 3,
+        axislabelRotation:270,  
+        AxislabelFont: fontItalic,
+        yAxisLabelText:"Number of Men vs Women",
         barWidth: 35,
         barColour: colours2,
 

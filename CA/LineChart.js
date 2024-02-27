@@ -2,7 +2,7 @@ class LineChart {
     constructor(obj) {
         // Data Properties
         this.data = obj.data;
-        this.dataSet = obj.dataSet;
+
 
         // Chart Pos Properties:
         this.chartWidth = obj.chartWidth;
@@ -11,6 +11,9 @@ class LineChart {
         this.yPos = obj.yPos;
         this.axisLineColour = obj.axisLineColour;
         this.axisLineWeight = obj.axisLineWeight;
+        this.axislabelRotation = obj.axislabelRotation;
+        this.yAxisLabelText = obj.yAxisLabelText;
+        this.AxislabelFont = obj.AxislabelFont;
 
         // Bar Propeties
         this.barColour = obj.barColour;
@@ -53,20 +56,36 @@ class LineChart {
         line(0, 0, 0, -this.chartHeight);
         line(0, 0, this.chartWidth, 0);
     
- 
+        
+
+        //Title Label
         noStroke();
         fill(this.labelColour);
         textSize(this.YLabelSize);
         textAlign(CENTER);
-        textFont(this.LabelFont);
+        textFont(this.LabelFont)
         text(this.YLabel,this.chartHeight/2,-this.chartHeight-this.YLabelOffset);
+
+
+        textFont(this.AxislabelFont)
+
+        //Y Axis Label
+        push();
+        textSize(this.tickTextSize)
+    
+        rotate(this.axislabelRotation);
+        text(this.yAxisLabelText, this.chartWidth/3,-this.chartHeight/3)
+        pop();
 
 
         //X Axis Label
         text(this.xValue,this.chartWidth/2,this.chartHeight/3.5)
+        textFont(this.LabelFont)
+    
+  
 
 
-        //
+        //Creating the legend
         for (let i = 0; i < this.legendLabels.length; i++) {
 
             fill(this.barColour[i]);
@@ -96,7 +115,7 @@ class LineChart {
         //     }
 
 
-
+        //Splitting the data into two 
         let data01 = this.data.map(entry => parseFloat(entry['Female']));
         let data02 = this.data.map(entry => parseFloat(entry['Male']));
 
@@ -105,15 +124,16 @@ class LineChart {
         push();
         translate(gap, 0);
     
+        //Using a for each to go through each data set
         [data01, data02].forEach((data, index) => {
             data.forEach((value, i) => {
                 let x = i * gap;
                 let y = -value * this.scale;
                 strokeWeight(4)
                 stroke(255);
-                point(x, y); // Draw points
+                point(x, y); 
     
-                // Connect points with lines
+                //Conecting lines
                 strokeWeight(2)
                 stroke(this.barColour[index])
                 if (i > 0) {
@@ -125,7 +145,7 @@ class LineChart {
                 }
 
 
-
+                //Creating labels
                 noStroke();
                 fill(this.labelColour);
                 if (this.labelRotation === 0) {
@@ -149,6 +169,7 @@ class LineChart {
         strokeWeight(this.tickWeight);
     
         let tickGap = this.chartHeight / this.numTicks;
+
         for (let i = 0; i <= this.numTicks; i++) {
             line(0, -i * tickGap, -this.tickWidth, -i * tickGap);
             noStroke();
@@ -160,9 +181,4 @@ class LineChart {
     
         pop();
     }
-    
-    
-    
-    
-    
 }

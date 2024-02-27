@@ -2,18 +2,26 @@ class BarChart{
     constructor(obj){
         this.data = obj.data;
   
+        //Chart Properties
         this.chartWidth=obj.chartWidth;
         this.chartHeight=obj.chartHeight;
         this.xPos = obj.xPos;
         this.yPos = obj.yPos;
+
+        //Axis Properties
         this.axisLineColour = obj.axisLineColour;
         this.axisLineWeight = obj.axisLineWeight;
+        this.axislabelRotation = obj.axislabelRotation;
+        this.yAxisLabelText = obj.yAxisLabelText;
+        this.AxislabelFont = obj.AxislabelFont;
   
+        //Bar Properties
         this.barColour = obj.barColour;
         this.barWidth = obj.barWidth;
         this.yValue = obj.yValue;
         this.xValue = obj.xValue;
   
+        //Label Properties
         this.labelColour = obj.labelColour;
         this.labelRotation = obj.labelRotation;
         this.labelTextSize = obj.labelTextSize;
@@ -52,6 +60,13 @@ class BarChart{
         textAlign(CENTER);
         textFont(this.LabelFont);
         text(this.YLabel,this.chartHeight/2,-this.chartHeight-this.YLabelOffset);
+
+        textSize(this.tickTextSize)
+        push();
+        rotate(this.axislabelRotation);
+        textFont(this.AxislabelFont)
+        text(this.yAxisLabelText, this.chartWidth/3,-this.chartHeight/3)
+        pop();
         
      
         let gap = (this.chartWidth - (this.data.length * this.barWidth))/(this.data.length +1);
@@ -97,6 +112,7 @@ class BarChart{
   
   
         let tickGap = this.chartHeight/this.numTicks;
+        
         for(let i = 0; i<=this.numTicks; i++){
             push();
             line(0,-i*tickGap,-this.tickWidth,-i*tickGap);
@@ -108,7 +124,5 @@ class BarChart{
             pop();
         }
         pop ();
-  
-        
     }
   }
