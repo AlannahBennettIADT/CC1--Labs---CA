@@ -138,6 +138,8 @@ class PieChart {
         let percentage =( angles[i]/360 )* 100;
         percentages.push(percentage);
       }
+
+      noStroke();
       
       text(round(percentages[i])+"%",labelX,labelY);  
 

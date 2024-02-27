@@ -79,6 +79,7 @@ class LineChart {
 
 
         //X Axis Label
+        textSize(this.tickTextSize)
         text(this.xValue,this.chartWidth/2,this.chartHeight/3.5)
         textFont(this.LabelFont)
     
@@ -164,19 +165,21 @@ class LineChart {
     
         pop();
     
-        // Render ticks
+        //Creating Ticks
         stroke(this.tickColour);
         strokeWeight(this.tickWeight);
-    
-        let tickGap = this.chartHeight / this.numTicks;
 
+
+        let tickGap = this.chartHeight / this.numTicks;
         for (let i = 0; i <= this.numTicks; i++) {
+            push();
             line(0, -i * tickGap, -this.tickWidth, -i * tickGap);
             noStroke();
             textSize(this.tickTextSize);
             textAlign(RIGHT, CENTER);
             let value = this.maxValue / this.numTicks * i;
             text(value.toFixed(2), -this.tickPadding - this.tickStrokeLength, -i * tickGap);
+            pop();
         }
     
         pop();

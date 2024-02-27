@@ -49,10 +49,7 @@ class BarChart{
         push ();
   
         translate (this.xPos,this.yPos);
-        stroke(this.axisLineColour);
-        strokeWeight(this.axisLineWeight);
-        line (0,0,0,-this.chartHeight);
-        line (0,0,this.chartWidth,0);
+
   
         noStroke();
         fill(this.labelColour);
@@ -106,7 +103,7 @@ class BarChart{
         pop();
   
   
-  
+        //Creating the Ticks Y Axis
         stroke(this.tickColour);
         strokeWeight(this.tickWeight);
   
@@ -123,6 +120,15 @@ class BarChart{
             text(value.toFixed(2), -this.tickPadding-this.tickStrokeLength,-i*tickGap);
             pop();
         }
+
+
+        //Creating the Chart Axis
+        stroke(this.axisLineColour);
+        strokeWeight(this.axisLineWeight);
+        line (0,0,0,-this.chartHeight);
+        line (0,0,this.chartWidth,0);
+
+
         pop ();
     }
   }

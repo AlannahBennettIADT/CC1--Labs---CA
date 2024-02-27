@@ -77,10 +77,7 @@ class StackedChart {
         push();
 
         translate(this.xPos, this.yPos);
-        stroke(this.axisLineColour);
-        strokeWeight(this.axisLineWeight);
-        line(0, 0, 0, -this.chartHeight);
-        line(0, 0, this.chartWidth, 0);
+
 
 
         noStroke();
@@ -95,7 +92,7 @@ class StackedChart {
         push();
         rotate(this.axislabelRotation);
         textFont(this.AxislabelFont)
-        text(this.yAxisLabelText, this.chartWidth / 3, -this.chartHeight / 3)
+        text(this.yAxisLabelText, this.chartWidth / 2.5 , -this.chartHeight / 3)
         pop();
 
 
@@ -197,6 +194,13 @@ class StackedChart {
             text(value.toFixed(2), -this.tickPadding - this.tickStrokeLength, -i * tickGap);
             pop();
         }
+
+            //Creating the Chart Axis
+            drawingContext.setLineDash([0]);
+            stroke(this.axisLineColour);
+            strokeWeight(this.axisLineWeight);
+            line (0,0,0,-this.chartHeight);
+            line (0,0,this.chartWidth,0);
 
         pop();
     }

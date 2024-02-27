@@ -50,10 +50,7 @@ class HorizontalBar{
         push ();
         //Creating the Chart Axis
         translate (this.xPos,this.yPos);
-        stroke(this.axisLineColour)
-        strokeWeight(this.axisLineWeight);
-        line (0,0,0,-this.chartHeight);
-        line (0,0,this.chartWidth,0);
+
 
         //Chart Title
         noStroke();
@@ -64,6 +61,7 @@ class HorizontalBar{
         text(this.YLabel,this.chartHeight/2,-this.chartHeight-this.YLabelOffset);
 
         //X Axis Label
+        
         textSize(this.tickTextSize)
         textFont(this.AxislabelFont);
         text(this.yValue,this.chartWidth/2,this.chartHeight/4)
@@ -131,6 +129,13 @@ class HorizontalBar{
             pop();
         }
 
+        //Creating the Chart Axis
+        stroke(this.axisLineColour)
+        strokeWeight(this.axisLineWeight);
+        line (0,0,0,-this.chartHeight);
+        line (0,0,this.chartWidth,0);
+
+        
         pop ();
 
     }

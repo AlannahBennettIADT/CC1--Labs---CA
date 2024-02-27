@@ -88,9 +88,8 @@ function setup(){
     let ceoData = cleanData03.filter((cleanData03)=> cleanData03.Roles=="Chief Executive Officers (CEOs)" || cleanData03.Roles=="Chief Financial Officers (CFOs)");
     console.log(ceoData)
 
+    //Chart Objects: 
 
-
-    //first Bar Chart
     let barChart ={
         data:female2023data,
 
@@ -200,7 +199,7 @@ function setup(){
         tickColour: "#ffffff",
         tickStrokeLength: 10,
         tickPadding:10,
-        tickTextSize: 14,
+        tickTextSize: 16,
         numTicks: 5
     }
 
@@ -240,7 +239,7 @@ function setup(){
         tickColour: "#ffffff",
         tickStrokeLength: 10,
         tickPadding:10,
-        tickTextSize: 14,
+        tickTextSize: 16,
         numTicks: 5,
         dataSets: 1
     }
